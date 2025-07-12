@@ -1,17 +1,18 @@
 package routers
 
-// import (
-// 	"github.com/gofiber/fiber/v2"
-// )
-// // SetupRoutes func
-// func SetupRoutes(app *fiber.App) {
-// 	// grouping
-// 	api := app.Group("/api")
-// 	v1 := api.Group("/user")
-// 	// routes
-// 	v1.Get("/", handler.GetAllUsers)
-// 	v1.Get("/:id", handler.GetSingleUser)
-// 	v1.Post("/", handler.CreateUser)
-// 	v1.Put("/:id", handler.UpdateUser)
-// 	v1.Delete("/:id", handler.DeleteUserByID)
-// }
+import (
+	"github.com/gofiber/fiber/v2"
+	"github.com/gtrirf/go-project/internal/handlers"
+	"github.com/gtrirf/go-project/internal/service"
+	"gorm.io/gorm"
+)
+
+// SetupRoutes func
+func SetupRoutes(app *fiber.App, db *gorm.DB) {
+	api := app.Group("/api")
+	
+	feeService := service.NewFeeService(db)
+	feeHandler := handlers.NewFeeHandler(feeService)
+
+	api.Get("/fees", feeHandler.GetFees)
+}

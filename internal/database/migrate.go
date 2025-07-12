@@ -19,6 +19,9 @@ func RunMigrations(db *gorm.DB) {
 		&models.Attendance{},
 		&models.Location{},
 		&models.StudentCode{},
+		&models.Permission{},
+		&models.ContentType{},
+		&models.UserPermission{},
 	)
 
 	if err != nil {
